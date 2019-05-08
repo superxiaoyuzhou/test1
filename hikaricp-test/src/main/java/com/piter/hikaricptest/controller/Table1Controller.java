@@ -44,7 +44,7 @@ public class Table1Controller{
     @RequestMapping("/test3")
     public Object test3(){
         Table1 param = new Table1();
-        param.setName("aaaa");
+        param.setName("aaa");
         return table1Mapper.delete(Wrappers .<Table1>lambdaQuery(param));
     }
 
