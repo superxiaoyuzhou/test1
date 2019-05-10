@@ -12,6 +12,7 @@
 		<module>fast-json</module>
 		<module>hikaricp-test</module>
 		<module>mybatis-plus</module>
+		<module>proxy</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
