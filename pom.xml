@@ -2,6 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<modules>
+		<module>abc</module>
+		<module>config</module>
+		<module>consumer</module>
+		<module>consumer2</module>
+		<module>demo</module>
+		<module>eureka</module>
+		<module>fast-json</module>
+		<module>hikaricp-test</module>
+		<module>mybatis-plus</module>
+	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
