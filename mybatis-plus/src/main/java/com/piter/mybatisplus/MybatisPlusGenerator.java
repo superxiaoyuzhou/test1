@@ -16,18 +16,19 @@ import java.util.List;
 public class MybatisPlusGenerator {
 
     private static final String MUDULE_NAME = "mybatis-plus";
-    private static final String TABLE_NAME = "BANNER";
-    private static final String PARENT_PACKAGE = "com.chinaums.wechatpre";
+    private static final String TABLE_NAME = "test";
+    private static final String PARENT_PACKAGE = "com.piter.mybatisplus";
     private static final String AUTHOR = "Piter";
 
     //jdbc:oracle:thin:@172.16.210.20:1521:zjtsdb
-    //jdbc:mysql://localhost:3306/dev?useUnicode=true&characterEncoding=utf8
-    public static final String URL = "jdbc:oracle:thin:@172.16.208.13:1521:orcl";
+    public static final String URL = "jdbc:mysql://localhost:3306/testgroup?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai";
+//    public static final String URL = "jdbc:oracle:thin:@172.16.208.13:1521:orcl";
     //oracle.jdbc.driver.OracleDriver
     //com.mysql.cj.jdbc.Driver
-    public static final String DRIVER_NAME = "oracle.jdbc.OracleDriver";
-    public static final String USER_NAME = "promote_new";
-    public static final String PASSWORD = "promote_new2019";
+    public static final String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
+//    public static final String DRIVER_NAME = "oracle.jdbc.OracleDriver";
+    public static final String USER_NAME = "root";
+    public static final String PASSWORD = "root";
 
     public static void main(String[] args) {
         // 代码生成器
@@ -82,7 +83,7 @@ public class MybatisPlusGenerator {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输入文件名称
-                return projectPath + "/src/main/resources/mybatis/mapper/"
+                return projectPath + "/src/main/resources/mappers/"
                         + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });
@@ -94,7 +95,7 @@ public class MybatisPlusGenerator {
                     .setXml(null)
                     .setController(null)
                     .setService(null)
-                    .setServiceImpl(null)
+//                    .setServiceImpl(null)
         );
 
         //执行

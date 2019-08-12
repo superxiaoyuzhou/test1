@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--把对象的创建交给spring来管理-->
+    <bean id="accountService" class="com.piter.service.impl.AccountServiceImpl"></bean>
+    <bean id="accountService2" class="com.piter.service.impl.AccountServiceImpl">
+        <property name="aaa" value="123"/>
+        <property name="accountDao" ref="accountDao"/>
+        <!-- 在注入集合数据时，只要结构相同，标签可以互换 -->  <!-- 给数组注入数据 -->
+        <property name="myStrs">
+            <set>
+                <value>AAA</value>
+                <value>BBB</value>
+                <value>CCC</value>
+            </set>
+        </property>
+        <!-- 注入 list 集合数据 -->
+        <property name="myList">
+            <array>
+                <value>AAA</value>
+                <value>BBB</value>
+                <value>CCC</value>
+            </array>
+        </property>
+        <!-- 注入 set 集合数据 -->
+        <property name="mySet">
+            <list>
+                <value>AAA</value>
+                <value>BBB</value>
+                <value>CCC</value>
+            </list>
+        </property>
+        <!-- 注入 Map 数据 -->
+        <property name="myMap">
+            <props>
+                <prop key="testA">aaa</prop>
+                <prop key="testB">bbb</prop>
+            </props>
+        </property>
+        <!-- 注入 properties 数据 -->
+        <property name="myProps">
+            <map>
+                <entry key="testA" value="aaa"></entry>
+                <entry key="testB">
+                    <value>bbb</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="accountDao" class="com.piter.dao.impl.AccountDaoImpl"></bean>
+
+    <!-- 静态工厂-->
+    <bean id="staticFactory" class="com.piter.service.StaticFactory" factory-method="getObject"></bean>
+
+    <!-- 此种方式是： 先把工厂的创建交给 spring 来管理。
+    然后在使用工厂的 bean 来调用里面的方法
+    factory-bean 属性：用于指定实例工厂 bean 的 id。
+    factory-method 属性：用于指定实例工厂中创建对象的方法。  -->
+    <bean id="instancFactory" class="com.piter.service.InstanceFactory"></bean>
+    <bean id="AccountService1" factory-bean="instancFactory" factory-method="createAccountService"></bean>
+    <!--
+       它是实现了FactoryBean<T>接口的Bean，
+       根据该Bean的ID从BeanFactory中获取的实际上是FactoryBean的getObject()返回的对象，
+       及默认调用getObject()方法获取对象,
+       而不是FactoryBean本身，如果要获取FactoryBean对象，请在id前面加一个&符号来获取。
+       -->
+    <bean id="AccountService2" class="com.piter.service.AccountServiceFactory"></bean>
+</beans>

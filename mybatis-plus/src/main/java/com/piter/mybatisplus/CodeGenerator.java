@@ -26,16 +26,17 @@ import java.util.Scanner;
  */
 public class CodeGenerator {
 
-    private static final String PARENT_PACKAGE = "com.chinaums.promote.manager";
+    private static final String PARENT_PACKAGE = "com.piter.mybatisplus";
     private static final String AUTHOR = "Piter";
-    //jdbc:oracle:thin:@172.16.210.20:1521:zjtsdb
-    //jdbc:mysql://localhost:3306/dev?useUnicode=true&characterEncoding=utf8
-    public static final String URL = "jdbc:oracle:thin:@172.16.208.13:1521:orcl";
+
+    public static final String URL = "jdbc:mysql://localhost:3306/testgroup?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai";
+    //    public static final String URL = "jdbc:oracle:thin:@172.16.208.13:1521:orcl";
     //oracle.jdbc.driver.OracleDriver
     //com.mysql.cj.jdbc.Driver
-    public static final String DRIVER_NAME = "oracle.jdbc.driver.OracleDriver";
-    public static final String USER_NAME = "promote_new";
-    public static final String PASSWORD = "promote_new2019";
+    public static final String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
+    //    public static final String DRIVER_NAME = "oracle.jdbc.OracleDriver";
+    public static final String USER_NAME = "root";
+    public static final String PASSWORD = "root";
 
     /**
      * <p>
