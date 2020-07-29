@@ -1,4 +1,4 @@
-package 线程;
+package 多线程;
 
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;

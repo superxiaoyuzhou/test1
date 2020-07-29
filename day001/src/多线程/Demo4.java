@@ -1,7 +1,5 @@
-package 线程;
+package 多线程;
 
-import java.util.Objects;
-import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -32,11 +30,11 @@ public class Demo4 {
         @Override
         public void run() {
             try {
-                System.out.println(Thread.currentThread().getName() + "线程---------------开始获取锁----");
+                System.out.println(Thread.currentThread().getName() + "多线程---------------开始获取锁----");
                 semaphore.acquire();
-                System.out.println(Thread.currentThread().getName() + "线程----------运行中-------------");
+                System.out.println(Thread.currentThread().getName() + "多线程----------运行中-------------");
                 Thread.sleep(1000);
-                System.out.println(Thread.currentThread().getName() + "线程---------------结束释放锁-------");
+                System.out.println(Thread.currentThread().getName() + "多线程---------------结束释放锁-------");
                 semaphore.release();
             } catch (InterruptedException e) {
                 e.printStackTrace();

@@ -1,4 +1,4 @@
-package 线程;
+package 多线程;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
@@ -34,9 +34,9 @@ public class Demo2 {
         @Override
         public String call() throws Exception {
             try {
-                System.out.println(Thread.currentThread().getName() + "线程---------开始运行-------");
+                System.out.println(Thread.currentThread().getName() + "多线程---------开始运行-------");
                 Thread.sleep(1000);
-                System.out.println(Thread.currentThread().getName() + "线程---------运行结束-------");
+                System.out.println(Thread.currentThread().getName() + "多线程---------运行结束-------");
                 return Thread.currentThread().getName();
             } catch (Exception e) {
                 e.printStackTrace();
