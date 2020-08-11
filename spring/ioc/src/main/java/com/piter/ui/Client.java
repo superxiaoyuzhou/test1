@@ -22,7 +22,7 @@ public class Client {
      *      ClassPathXmlApplicationContext：它可以加载类路径下的配置文件，要求配置文件必须在类路径下。不在的话，加载不了。(更常用)
      *      FileSystemXmlApplicationContext：它可以加载磁盘任意路径下的配置文件(必须有访问权限）
      *
-     *      AnnotationConfigApplicationContext：它是用于读取注解创建容器的，是明天的内容。
+     *      AnnotationConfigApplicationContext：它是用于读取注解创建容器的。
      *
      * 核心容器的两个接口引发出的问题：
      *  ApplicationContext:     单例对象适用              采用此接口

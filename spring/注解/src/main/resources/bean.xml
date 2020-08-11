@@ -8,4 +8,8 @@
     <context:component-scan base-package="com.piter"></context:component-scan>
 
     <bean id="accountDao" class="com.piter.dao.impl.AccountDaoImpl"></bean>
+    <bean id="user" class="com.piter.entity.User">
+        <property name="age" value="20"></property>
+        <property name="name" value="李四"></property>
+    </bean>
 </beans>

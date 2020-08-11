@@ -10,6 +10,6 @@ public class AccountServiceFactory implements FactoryBean {
     }
 
     public Class<?> getObjectType() {
-        return null;
+        return AccountServiceImpl.class;
     }
 }

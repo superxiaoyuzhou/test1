@@ -1,9 +1,15 @@
-package com.piter;
+package com.piter.config;
 
-import com.sun.xml.internal.bind.annotation.XmlLocation;
+import com.piter.entity.User;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
+
+import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_SINGLETON;
 
 /**
  * 该类是一个配置类，它的作用和bean.xml是一样的
@@ -40,4 +46,11 @@ import org.springframework.context.annotation.PropertySource;
 //@Import(JdbcConfig.class)
 //@PropertySource("classpath:jdbcConfig.properties")
 public class SpringConfiguration {
+
+    @Lazy
+    @Scope(SCOPE_SINGLETON)
+    @Bean
+    public User getUser(){
+        return new User(18,"张三");
+    }
 }

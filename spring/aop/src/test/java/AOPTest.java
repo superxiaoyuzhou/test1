@@ -1,11 +1,8 @@
-import com.piter.SpringConfiguration;
-import com.piter.dao.IAccountDao;
 import com.piter.service.IAccountService;
+import com.piter.service.impl.AccountServiceImpl;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * 使用Junit单元测试：测试我们的配置
@@ -20,21 +17,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  *   当我们使用spring 5.x版本的时候，要求junit的jar必须是4.12及以上
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:bean.xml")
-//@ContextConfiguration(classes = SpringConfiguration.class)
-public class AccountServiceTest {
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(locations = "classpath:bean.xml")
+public class AOPTest {
 
-    @Autowired
-    private IAccountService iAccountService;
-
-    @Autowired
-    private IAccountDao iAccountDao;
 
     @Test
-    public void testFindAll() {
-        iAccountService.saveAccount();
-        iAccountDao.saveAccount();
+    public void test1() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("bean.xml");
+        IAccountService accountService = applicationContext.getBean(IAccountService.class);
+        accountService.saveAccount();
     }
 
 
