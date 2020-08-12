@@ -1,13 +1,27 @@
-package com.piter.service;
+package com.piter.config;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Component;
 
-import java.sql.SQLException;
+import javax.sound.midi.Soundbank;
 
 /**
  * 事务控制类
  */
+@Component("txManager")
+@Aspect
 public class TransactionManager {
+
+    @Pointcut("execution(* com.piter.service.impl.*.*(..))")
+    public void ptl(){ }
 
     //定义一个 DBAssit
     private DBAssit dbAssit;
@@ -17,6 +31,7 @@ public class TransactionManager {
     }
 
     //开启事务
+    @Before("ptl()")
     public void beginTransaction() {
         try {
 //            dbAssit.getCurrentConnection().setAutoCommit(false);
@@ -27,6 +42,18 @@ public class TransactionManager {
     }
 
     //提交事务
+    @AfterReturning(pointcut = "ptl()",returning = "result")
+    public void commit(JoinPoint joinPoint, Object result) {
+        try {
+//            dbAssit.getCurrentConnection().commit();
+            System.out.println("调用" + joinPoint.getTarget() + "的" + joinPoint.getSignature().getName() + "方法,返回值" + result);
+            System.out.println("提交事务!");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void commit() {
         try {
 //            dbAssit.getCurrentConnection().commit();
@@ -38,16 +65,27 @@ public class TransactionManager {
     }
 
     //回滚事务
+    @AfterThrowing(pointcut = "ptl()", throwing = "e")
+    public void rollback(JoinPoint joinPoint,Exception e) {
+        try {
+//            dbAssit.getCurrentConnection().rollback();
+            System.out.println("调用" + joinPoint.getTarget() + "的" + joinPoint.getSignature().getName() + "方法发生" + e);
+            System.out.println("回滚事务!");
+        } catch (Exception ei) {
+            ei.printStackTrace();
+        }
+    }
     public void rollback() {
         try {
 //            dbAssit.getCurrentConnection().rollback();
             System.out.println("回滚事务!");
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ei) {
+            ei.printStackTrace();
         }
     }
 
     //释放资源
+    @After("ptl()")
     public void release() {
         try {
 //            dbAssit.releaseConnection();
@@ -64,6 +102,7 @@ public class TransactionManager {
      *  在环绕通知执行时，spring 框架会为我们提供该接口的实现类对象，我们直接使用就行。
      * @return
      */
+//    @Around("ptl()")
     public Object transactionAround(ProceedingJoinPoint pjp) {
         //定义返回值
         Object rtValue = null;

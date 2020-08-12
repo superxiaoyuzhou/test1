@@ -3,13 +3,20 @@ package com.piter.config;
 import com.piter.entity.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 
-import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_SINGLETON;
+import javax.sound.midi.Soundbank;
+
+import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE;
+
+
+
 
 /**
  * 该类是一个配置类，它的作用和bean.xml是一样的
@@ -40,17 +47,40 @@ import static org.springframework.beans.factory.config.ConfigurableBeanFactory.S
  *      属性：
  *          value：指定文件的名称和路径。
  *                  关键字：classpath，表示类路径下
+ *  EnableAspectJAutoProxy
+ *       作用：用于开启AOP动态代理
+ *       属性：
+ *           proxyTargetClass：是否创建基于子类的(CGLIB)代理
+ *
  */
 @Configuration
 @ComponentScan("com.piter")
-//@Import(JdbcConfig.class)
-//@PropertySource("classpath:jdbcConfig.properties")
+@Import(JdbcConfig.class)
+@PropertySource("classpath:jdbcConfig.properties")
+@EnableAspectJAutoProxy
 public class SpringConfiguration {
 
-    @Lazy
-    @Scope(SCOPE_SINGLETON)
-    @Bean
+    //多实例
+    @Scope(SCOPE_PROTOTYPE)
+    @Bean("user")
     public User getUser(){
+        System.out.println("加载user");
+        return new User(24,"李四");
+    }
+
+    //懒加载
+    @Lazy
+    @Bean("user2")
+    public User getUser2(){
+        System.out.println("加载user2");
         return new User(18,"张三");
     }
+
+    //条件加载
+    @Conditional(UserCondition.class)
+    @Bean("user3")
+    public User getUser3(){
+        return new User(20,"王五");
+    }
 }
+

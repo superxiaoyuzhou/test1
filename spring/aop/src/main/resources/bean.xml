@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--扫描包交给spring管理-->
+    <context:component-scan base-package="com.piter"></context:component-scan>
+
+    <bean id="dbAssit" class="com.piter.service.DBAssit"></bean>
+    <bean id="accountService" class="com.piter.service.impl.AccountServiceImpl"/>
+    <bean id="txManager" class="com.piter.service.TransactionManager">
+        <property name="dbAssit" ref="dbAssit"/>
+    </bean>
+    <aop:config>
+        <aop:pointcut id="pt1" expression="execution(* com.piter.service.impl.*.*(..))"/>
+        <aop:aspect id="txAdvice" ref="txManager">
+            <!--
+             作用：   用于配置环绕通知
+             属性：
+             method：指定通知中方法的名称。
+             pointct：定义切入点表达式
+             pointcut-ref：指定切入点表达式的引用
+             说明：   它是 spring 框架为我们提供的一种可以在代码中手动控制增强代码什么时候执行的方式。
+             注意：   通常情况下，环绕通知都是独立使用的 -->
+            <aop:around method="transactionAround" pointcut-ref="pt1"/>
+            <!--
+            作用：   用于配置前置通知。指定增强的方法在切入点方法之前执行
+            属性：
+            method:用于指定通知类中的增强方法名称
+            ponitcut-ref：用于指定切入点的表达式的引用
+            poinitcut：用于指定切入点表达式
+            执行时间点：   切入点方法执行之前执行 -->
+            <!--<aop:before method="beginTransaction" pointcut-ref="pt1"/>-->
+            <!--
+            作用：   用于配置后置通知
+            属性：
+            method：指定通知中方法的名称。
+            pointct：定义切入点表达式
+            pointcut-ref：指定切入点表达式的引用
+            执行时间点：   切入点方法正常执行之后。
+            它和异常通知只能有一个执行  -->
+            <!--<aop:after-returning method="commit" pointcut-ref="pt1"/>-->
+            <!--
+            作用：   用于配置异常通知
+            属性：
+            method：指定通知中方法的名称。
+            pointct：定义切入点表达式
+            pointcut-ref：指定切入点表达式的引用
+            执行时间点：   切入点方法执行产生异常后执行。
+            它和后置通知只能执行一个 -->
+            <!--<aop:after-throwing method="rollback" pointcut-ref="pt1"/>-->
+            <!--
+            作用：   用于配置最终通知
+            属性：
+            method：指定通知中方法的名称。
+            pointct：定义切入点表达式
+            pointcut-ref：指定切入点表达式的引用
+            执行时间点：   无论切入点方法执行时是否有异常，它都会在其后面执行。 -->
+            <!--<aop:after method="release" pointcut-ref="pt1"/>-->
+        </aop:aspect>
+    </aop:config>
+</beans>

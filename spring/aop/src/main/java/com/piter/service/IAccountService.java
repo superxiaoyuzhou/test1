@@ -8,5 +8,5 @@ public interface IAccountService {
     /**
      * 模拟保存账户
      */
-    String saveAccount();
+    void saveAccount();
 }

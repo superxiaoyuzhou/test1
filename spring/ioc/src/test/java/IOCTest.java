@@ -34,7 +34,7 @@ public class IOCTest {
     }
     @Test
     public void test2() {
-        ApplicationContext applicationContext = new FileSystemXmlApplicationContext(IOCTest.class.getClassLoader().getResource("bean.xml").getPath().substring(1));
+        ApplicationContext applicationContext = new FileSystemXmlApplicationContext(IOCTest.class.getClassLoader().getResource("bean.xml").getPath());
         String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
         for (String beanDefinitionName : beanDefinitionNames) {
             System.out.println(beanDefinitionName);

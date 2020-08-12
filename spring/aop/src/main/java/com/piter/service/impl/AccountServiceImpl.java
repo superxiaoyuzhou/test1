@@ -1,8 +1,7 @@
 package com.piter.service.impl;
 
-import com.piter.dao.IAccountDao;
-import com.piter.service.IAccountService;
 import org.springframework.stereotype.Service;
+import com.piter.service.IAccountService;
 
 import java.util.List;
 import java.util.Map;
@@ -12,12 +11,9 @@ import java.util.Set;
 /**
  * 账户的业务层实现类
  */
-@Service
 public class AccountServiceImpl implements IAccountService {
 
     private String aaa;
-    private IAccountDao accountDao ;
-
     private String[] myStrs;
     private List<String> myList;
     private Set<String> mySet;
@@ -28,11 +24,9 @@ public class AccountServiceImpl implements IAccountService {
         System.out.println("对象创建了!");
     }
 
-    public String saveAccount(){
+    public void  saveAccount(){
 //        accountDao.saveAccount();
         System.out.println("AccountServiceImpl的saveAccout()方法");
-//        throw new RuntimeException("方法执行异常");
-        return null;
     }
 
     public String getAaa() {
@@ -41,14 +35,6 @@ public class AccountServiceImpl implements IAccountService {
 
     public void setAaa(String aaa) {
         this.aaa = aaa;
-    }
-
-    public IAccountDao getAccountDao() {
-        return accountDao;
-    }
-
-    public void setAccountDao(IAccountDao accountDao) {
-        this.accountDao = accountDao;
     }
 
     public String[] getMyStrs() {

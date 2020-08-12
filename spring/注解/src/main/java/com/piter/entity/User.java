@@ -1,21 +1,18 @@
 package com.piter.entity;
 
-import org.springframework.context.annotation.Lazy;
-
-
 public class User {
 
     private int age;
     private String name;
 
     public User(int age, String name) {
-        System.out.println("user 被加载!");
+        System.out.println("user 被创建!");
         this.age = age;
         this.name = name;
     }
 
     public User() {
-        System.out.println("user 被加载!");
+        System.out.println("user 被创建!");
     }
 
     public int getAge() {

@@ -45,9 +45,23 @@ public class AnnotationTest {
     @Test
     public void test1() {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringConfiguration.class);
-        User user = applicationContext.getBean(User.class);
-        System.out.println(user);
+        String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
+        for (String beanDefinitionName : beanDefinitionNames) {
+            System.out.println(beanDefinitionName);
+        }
+        System.out.println("------------------------懒加载user2-------------------");
+        User user2 = applicationContext.getBean("user2", User.class);
+        System.out.println("------------------------多实例user-------------------");
+        for (int i = 0; i < 3; i++) {
+            applicationContext.getBean("user", User.class);
+        }
     }
 
+    @Test
+    public void test2() {
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringConfiguration.class);
+        IAccountService accountService = applicationContext.getBean(IAccountService.class);
+        accountService.saveAccount();
+    }
 
 }
