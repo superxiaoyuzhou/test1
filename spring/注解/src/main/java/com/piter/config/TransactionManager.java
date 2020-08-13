@@ -21,7 +21,7 @@ import javax.sound.midi.Soundbank;
 public class TransactionManager {
 
     @Pointcut("execution(* com.piter.service.impl.*.*(..))")
-    public void ptl(){ }
+    public void pointcut(){ }
 
     //定义一个 DBAssit
     private DBAssit dbAssit;
@@ -31,7 +31,15 @@ public class TransactionManager {
     }
 
     //开启事务
-    @Before("ptl()")
+    @Before("pointcut()")
+    public void beginTransaction(JoinPoint joinPoint) {
+        try {
+//            dbAssit.getCurrentConnection().setAutoCommit(false);
+            System.out.println("开启事务!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public void beginTransaction() {
         try {
 //            dbAssit.getCurrentConnection().setAutoCommit(false);
@@ -42,7 +50,7 @@ public class TransactionManager {
     }
 
     //提交事务
-    @AfterReturning(pointcut = "ptl()",returning = "result")
+    @AfterReturning(pointcut = "pointcut()",returning = "result")
     public void commit(JoinPoint joinPoint, Object result) {
         try {
 //            dbAssit.getCurrentConnection().commit();
@@ -65,7 +73,7 @@ public class TransactionManager {
     }
 
     //回滚事务
-    @AfterThrowing(pointcut = "ptl()", throwing = "e")
+    @AfterThrowing(pointcut = "pointcut()", throwing = "e")
     public void rollback(JoinPoint joinPoint,Exception e) {
         try {
 //            dbAssit.getCurrentConnection().rollback();
@@ -85,7 +93,7 @@ public class TransactionManager {
     }
 
     //释放资源
-    @After("ptl()")
+    @After("pointcut()")
     public void release() {
         try {
 //            dbAssit.releaseConnection();
@@ -102,7 +110,7 @@ public class TransactionManager {
      *  在环绕通知执行时，spring 框架会为我们提供该接口的实现类对象，我们直接使用就行。
      * @return
      */
-//    @Around("ptl()")
+//    @Around("pointcut()")
     public Object transactionAround(ProceedingJoinPoint pjp) {
         //定义返回值
         Object rtValue = null;

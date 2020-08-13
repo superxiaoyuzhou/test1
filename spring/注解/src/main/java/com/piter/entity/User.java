@@ -4,11 +4,16 @@ public class User {
 
     private int age;
     private String name;
+    private String emile;
 
     public User(int age, String name) {
         System.out.println("user 被创建!");
         this.age = age;
         this.name = name;
+    }
+
+    public void init() {
+        emile = "1234562@qq.com";
     }
 
     public User() {

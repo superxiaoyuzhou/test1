@@ -5,6 +5,7 @@ import com.piter.service.IAccountService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -29,9 +30,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = SpringConfiguration.class)
 public class AnnotationTest {
 
-    @Autowired
+    //required = false容器中可以不存在
+    @Autowired(required = false)
     private IAccountService iAccountService;
 
+    //自动装配时指定名称
+    @Qualifier("iAccountDao")
     @Autowired
     private IAccountDao iAccountDao;
 
