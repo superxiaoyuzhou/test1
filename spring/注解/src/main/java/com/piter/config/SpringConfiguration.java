@@ -1,15 +1,7 @@
 package com.piter.config;
 
 import com.piter.entity.User;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Conditional;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.*;
 
 import javax.sound.midi.Soundbank;
 
@@ -80,6 +72,13 @@ public class SpringConfiguration {
     @Conditional(UserCondition.class)
     @Bean("user3")
     public User getUser3(){
+        return new User(20,"王五");
+    }
+
+    //user.class首选自动注入
+//    @Primary
+    @Bean(value = "user4", initMethod = "init")
+    public User getUser4(){
         return new User(20,"王五");
     }
 }
