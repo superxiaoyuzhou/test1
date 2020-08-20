@@ -43,4 +43,8 @@ public class User {
                 ", name='" + name + '\'' +
                 '}';
     }
+
+    private void destroy() {
+        System.out.println(this.toString() + "被销毁了");
+    }
 }

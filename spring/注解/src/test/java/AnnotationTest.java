@@ -13,6 +13,8 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.annotation.Resource;
+
 /**
  * 使用Junit单元测试：测试我们的配置
  * Spring整合junit的配置
@@ -38,6 +40,14 @@ public class AnnotationTest {
     @Qualifier("iAccountDao")
     @Autowired
     private IAccountDao iAccountDao;
+
+    //另外一种自动装配方式，不支持@Primary
+    @Resource
+    private User user;
+
+    //@Inject和@Autowired自动装配一样，但不支持(required = false)，可用于非spring框架，导入javax.inject包
+//    @Inject
+//    private User user;
 
     @Test
     public void testFindAll() {
