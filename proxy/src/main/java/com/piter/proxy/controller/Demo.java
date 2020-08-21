@@ -9,6 +9,11 @@ import java.lang.reflect.Proxy;
 
 public class Demo {
 
+    /**
+     * jdk动态代理源码分析：https://www.jianshu.com/p/269afd0a52e6
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         //生成jdk代理类class文件在 \Workspaces\项目名称\com\sun\proxy 路径下
         System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true"); //jdk 动态代理
