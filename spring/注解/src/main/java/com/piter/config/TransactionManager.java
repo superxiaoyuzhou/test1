@@ -20,7 +20,7 @@ import javax.sound.midi.Soundbank;
 @Aspect
 public class TransactionManager {
 
-    @Pointcut("execution(* com.piter.service.impl.*.*(..))")
+    @Pointcut("execution(* com.piter.service.impl..*.*(..))")
     public void pointcut(){ }
 
     //定义一个 DBAssit
