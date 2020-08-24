@@ -17,6 +17,7 @@
         <module>spring-tx</module>
         <module>spring-web</module>
         <module>spring-webmvc</module>
+        <module>spring-jdbc</module>
     </modules>
 
 
