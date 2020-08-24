@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.piter</groupId>
+    <artifactId>spring-3.2.6.RELEASE_中文注释版</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>spring-aop</module>
+        <module>spring-beans</module>
+        <module>spring-context</module>
+        <module>spring-core</module>
+        <module>spring-expression</module>
+        <module>spring-tx</module>
+        <module>spring-web</module>
+        <module>spring-webmvc</module>
+    </modules>
+
+
+</project>
