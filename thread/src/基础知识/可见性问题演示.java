@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
  * 线程可见性问题演示
  * 线程无法终止
  */
-public class Test2 {
+public class 可见性问题演示 {
 
     private static boolean stop = false;
     //volatile 关键字修饰的变量能保证可见性，线程可以终止
