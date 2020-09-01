@@ -20,9 +20,9 @@ public class LockDemo1 {
 
     //读写锁:用于读多写少的情况
     private static ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
-    //读锁
+    //读锁:共享锁
     private static Lock readLock = readWriteLock.readLock();
-    //写锁
+    //写锁:独占锁
     private static Lock writeLock = readWriteLock.writeLock();
 
     public static void main(String[] args) throws InterruptedException {
