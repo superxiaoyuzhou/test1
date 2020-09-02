@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.piter.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.piter.entity.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="name" />
+    <result column="USER_AGE" jdbcType="INTEGER" property="age" />
+    <result column="USER_ADDRESS" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+
+  <resultMap id="UserVo" type="com.piter.pojo.UserVo">
+    <constructor>
+      <idArg column="ID" jdbcType="INTEGER" name="id" />
+      <arg column="NAME" jdbcType="VARCHAR" name="userName" />
+    </constructor>
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="name" />
+    <result column="USER_AGE" jdbcType="INTEGER" property="age" />
+    <result column="USER_ADDRESS" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+
+  <select id="findAll" resultType="User">
+    select id,user_name,user_age,user_address from user
+  </select>
+
+  <select id="findById" resultMap="UserVo">
+    select
+      id,user_name,user_age,user_address
+    from
+      user
+    WHERE
+      id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="findByMap" parameterMap="map" resultMap="UserVo">
+    select
+    id,user_name,user_age,user_address
+    from
+    user
+    WHERE
+    user_name = #{userName,jdbcType=VARCHAR}
+    and
+    user_age = #{age}
+  </select>
+
+  <!-- useGeneratedKeys:取出由数据库生成的自增主键，默认为false -->
+  <insert id="saveUser" useGeneratedKeys="true" parameterType="User" keyProperty="id">
+    insert into USER(user_name,user_age,user_address) VALUES (#{userName},#{userAge},#{userAddress})
+  </insert>
+
+    <insert id="saveUser2" parameterType="User" >
+        <selectKey keyProperty="id" order="AFTER" resultType="int" >
+            <!-- MySql -->
+            select LAST_INSERT_ID()
+            <!-- Oracle -->
+            <!--  select SEQ_ID.nextval from dual -->
+        </selectKey>
+        insert into USER(user_name,user_age,user_address) VALUES (#{userName},#{userAge},#{userAddress})
+    </insert>
+</mapper>
