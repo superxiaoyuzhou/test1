@@ -17,7 +17,8 @@
 		<module>spring/ioc</module>
 		<module>spring/aop</module>
 		<module>spring/注解</module>
-	</modules>
+        <module>MyBatis</module>
+    </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
