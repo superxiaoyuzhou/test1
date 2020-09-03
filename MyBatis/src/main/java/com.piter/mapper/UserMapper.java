@@ -30,7 +30,11 @@ public interface UserMapper {
     List<UserVo> findById2(Integer id);
 
     @ResultMap("UserVo")
-    @Select(" select id,user_name,user_age,user_address from user WHERE user_name = #{user_name,jdbcType=VARCHAR}")
+    @Select("select id,user_name,user_age,user_address from user WHERE user_name = #{user_name,jdbcType=VARCHAR}")
     UserVo findById3(@Param("userName") String name, @Param("age") Integer age);
+
+    @Insert("insert into USER(user_name,user_age,user_address) VALUES (#{userName},#{userAge},#{userAddress})")
+    @Options(useGeneratedKeys = true,keyProperty = "id")
+    UserVo saveUser(UserDto dto);
 
 }
