@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.piter.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="com.piter.entity.User">
+  <resultMap id="User" type="com.piter.entity.User">
     <!--
       WARNING - @mbg.generated
     -->
     <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="USER_NAME" jdbcType="VARCHAR" property="name" />
-    <result column="USER_AGE" jdbcType="INTEGER" property="age" />
-    <result column="USER_ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="USER_AGE" jdbcType="INTEGER" property="userAge" />
+    <result column="USER_ADDRESS" jdbcType="VARCHAR" property="userAddress" />
   </resultMap>
 
-  <resultMap id="UserVo" type="com.piter.pojo.UserVo">
+  <resultMap id="UserVo" type="com.piter.modle.UserVo">
     <constructor>
       <idArg column="ID" jdbcType="INTEGER" name="id" />
-      <arg column="NAME" jdbcType="VARCHAR" name="userName" />
+      <arg column="USER_NAME" jdbcType="VARCHAR" name="userName" />
     </constructor>
     <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="USER_NAME" jdbcType="VARCHAR" property="name" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
     <result column="USER_AGE" jdbcType="INTEGER" property="age" />
     <result column="USER_ADDRESS" jdbcType="VARCHAR" property="address" />
   </resultMap>
 
-  <select id="findAll" resultType="User">
+  <select id="findAll" resultType="com.piter.entity.User">
     select id,user_name,user_age,user_address from user
   </select>
 
@@ -35,7 +35,7 @@
       id = #{id,jdbcType=INTEGER}
   </select>
 
-  <select id="findByMap" parameterMap="map" resultMap="UserVo">
+  <select id="findByMap" resultMap="UserVo">
     select
     id,user_name,user_age,user_address
     from
@@ -46,18 +46,22 @@
     user_age = #{age}
   </select>
 
+  <select id="findByObject" resultType="User">
+
+  </select>
+
   <!-- useGeneratedKeys:取出由数据库生成的自增主键，默认为false -->
-  <insert id="saveUser" useGeneratedKeys="true" parameterType="User" keyProperty="id">
+  <insert id="saveUser1" useGeneratedKeys="true" parameterType="User" keyProperty="id">
     insert into USER(user_name,user_age,user_address) VALUES (#{userName},#{userAge},#{userAddress})
   </insert>
 
-    <insert id="saveUser2" parameterType="User" >
-        <selectKey keyProperty="id" order="AFTER" resultType="int" >
+    <insert id="saveUser2" parameterType="com.piter.modle.UserDto" >
+        <selectKey keyProperty="id" order="AFTER" resultType="int">
             <!-- MySql -->
             select LAST_INSERT_ID()
             <!-- Oracle -->
             <!--  select SEQ_ID.nextval from dual -->
         </selectKey>
-        insert into USER(user_name,user_age,user_address) VALUES (#{userName},#{userAge},#{userAddress})
+        insert into USER(user_name,user_age) VALUES (#{userName},#{age})
     </insert>
 </mapper>

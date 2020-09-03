@@ -2,6 +2,7 @@ package com.piter;
 
 import com.piter.entity.User;
 import com.piter.mapper.UserMapper;
+import com.piter.modle.UserDto;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -11,6 +12,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.HashMap;
 import java.util.List;
 
 public class Test1 {
@@ -34,6 +36,15 @@ public class Test1 {
         //4.执行查询并返回结果集
         List<User> userList = mapper.findAll();
         System.out.println(userList);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("userName", "张三");
+        map.put("age", "18");
+        System.out.println(mapper.findByMap(map));
+        UserDto userDto = new UserDto();
+        userDto.setUserName("赵六");
+        userDto.setAge(20);
+        mapper.saveUser2(userDto);
+        System.out.println("id: " + userDto.getId());
     }
 
 }

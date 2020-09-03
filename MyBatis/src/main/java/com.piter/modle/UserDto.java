@@ -1,6 +1,8 @@
-package com.piter.pojo;
+package com.piter.modle;
 
 public class UserDto {
+
+    private Integer id;
 
     private String userName;
 
@@ -20,6 +22,14 @@ public class UserDto {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override

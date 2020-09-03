@@ -6,12 +6,20 @@
 
     <!-- 引入配置文件 -->
     <properties resource="datasource.properties"/>
+
+    <settings>
+        <!--开启驼峰命名-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
     <typeAliases>
         <!-- 方式1：指定包，缩写默认为类名 -->
         <package name="com.piter.entity"/>
         <!-- 方式2：直接指定缩写 -->
         <!--<typeAlias type="com.piter.entity.User" alias="user"/>-->
     </typeAliases>
+
+
 
     <!--环境配置，连接的数据库，这里使用的是MySQL-->
     <environments default="dev">

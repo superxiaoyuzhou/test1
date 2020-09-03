@@ -1,8 +1,6 @@
-package com.piter.pojo;
+package com.piter.modle;
 
-import lombok.Data;
-
-public class UserVo {
+public class UserVo1 {
     private Integer id;
 
     private String userName;
@@ -11,7 +9,7 @@ public class UserVo {
 
     private String address;
 
-    public UserVo(Integer id,String userName) {
+    public UserVo1(Integer id, String userName) {
         this.userName = userName;
         this.id = id;
     }

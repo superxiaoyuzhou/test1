@@ -1,8 +1,8 @@
 package com.piter.mapper;
 
 import com.piter.entity.User;
-import com.piter.pojo.UserDto;
-import com.piter.pojo.UserVo;
+import com.piter.modle.UserDto;
+import com.piter.modle.UserVo;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public interface UserMapper {
 
     List<User> findByObject(UserDto dto);
 
-    @Results(id = "UserVo",value = {
+    @Results(id = "UserVo1",value = {
             @Result(property = "id",column = "id",id = true),
             @Result(property = "userName",column = "user_name"),
             @Result(property = "age",column = "user_age"),
@@ -35,6 +35,10 @@ public interface UserMapper {
 
     @Insert("insert into USER(user_name,user_age,user_address) VALUES (#{userName},#{userAge},#{userAddress})")
     @Options(useGeneratedKeys = true,keyProperty = "id")
-    UserVo saveUser(UserDto dto);
+    int saveUser(UserDto dto);
+
+    int saveUser1(UserDto dto);
+
+    int saveUser2(UserDto dto);
 
 }
