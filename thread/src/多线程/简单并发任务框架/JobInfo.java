@@ -79,4 +79,8 @@ public class JobInfo<T,R> {
     public String getExecutePercentage() {
         return (getTaskProcesserCount()*100/getCount()) + "%";
     }
+
+    public Boolean isAllExecute() {
+        return taskProcesserCount.get() == count;
+    }
 }

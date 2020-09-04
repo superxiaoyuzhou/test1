@@ -29,6 +29,9 @@ public class RestResp<T> implements Serializable {
         this.data = data;
     }
 
+    public static <T> RestResp<T> restRespSuccess(){
+        return new RestResp<>(ResultType.SUCCESS, "成功", null);
+    }
     public static <T> RestResp<T> restRespSuccess(T data){
         return new RestResp<>(ResultType.SUCCESS, "成功", data);
     }
