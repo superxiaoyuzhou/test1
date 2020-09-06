@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.piter.mapper.UserMapper">
+    <!-- 开启当前命名空间的二级缓存，容易出现脏读，应避免开启 -->
+    <cache/>
+    <!-- 使用另外一个命名空间的二级缓存，共用二级缓存 -->
+    <!--<cache-ref namespace=""/>-->
   <resultMap id="User" type="com.piter.entity.User">
     <!--
       WARNING - @mbg.generated
@@ -21,6 +25,49 @@
     <result column="USER_AGE" jdbcType="INTEGER" property="age" />
     <result column="USER_ADDRESS" jdbcType="VARCHAR" property="address" />
   </resultMap>
+    <!-- extends="User"，继承user的resultMap-->
+    <resultMap id="UserVo2" extends="User" type="com.piter.modle.UserVo2">
+        <association property="test" javaType="com.piter.modle.UserVo" columnPrefix="prefix_" >
+            <id column="ID" jdbcType="INTEGER" property="id" />
+            <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+            <result column="USER_ADDRESS" jdbcType="VARCHAR" property="address" />
+        </association>
+
+    </resultMap>
+
+    <resultMap id="UserVo3" extends="User" type="com.piter.modle.UserVo2">
+        <!-- 一对一 -->
+        <!-- 引用其它命名空间xml的 resultMap -->
+        <!-- column="id",把id字段传过去做参数查询 -->
+        <!-- 多个字段:column="{id=id,user_name=userName}" -->
+        <!--
+            懒加载:fetchType="lazy"，调用UserVo2对象的"test"属性时才会调用一次"select="的查询进行加载
+            需配置：<setting name="aggressiveLazyLoading" value="false"/>
+         -->
+        <association property="test"  column="id" javaType="com.piter.modle.UserVo" columnPrefix="prefix_" select="com.piter.mapper.UserMapper.findById" />
+        <!-- 一对多 -->
+        <collection property="testList"  column="id" javaType="com.piter.modle.UserVo" columnPrefix="prefix_" select="com.piter.mapper.UserMapper.findById" />
+    </resultMap>
+
+    <resultMap id="table1" extends="UserVo3" type="com.piter.modle.UserVo">
+        <association property="test"  column="id" javaType="com.piter.modle.UserVo" columnPrefix="prefix_" select="com.piter.mapper.UserMapper.findById" />
+    </resultMap>
+    <resultMap id="table2" extends="UserVo3" type="com.piter.modle.UserVo">
+        <association property="test"  column="id" javaType="com.piter.modle.UserVo" columnPrefix="prefix_" select="com.piter.mapper.UserMapper.findById" />
+    </resultMap>
+
+    <resultMap id="UserVo3" extends="User" type="com.piter.modle.UserVo2">
+        <!-- 鉴别器（注意继承关系）：这里两个都要继承"UserVo3" -->
+        <!-- 通过判断年龄，调用不同的resultMap查询（可以查询不同的表） -->
+        <discriminator column="user_age" javaType="int">
+            <case value="18" resultMap="table1"/>
+            <case value="20" resultMap="table2"/>
+        </discriminator>
+    </resultMap>
+
+    <sql id="test">
+        id,user_name,user_age,user_address
+    </sql>
 
   <select id="findAll" resultType="com.piter.entity.User">
     select id,user_name,user_age,user_address from user
@@ -64,4 +111,86 @@
         </selectKey>
         insert into USER(user_name,user_age) VALUES (#{userName},#{age})
     </insert>
+
+    <select id="testIfandWhere" parameterType="com.piter.modle.UserDto" resultType="User">
+        select
+        <include refid="test"/>
+        from
+        USER
+        <!-- trim  标签会自动去掉多余的“,” -->
+        <!-- set 标签会自动去掉多余的“,” -->
+        <!-- where 标签会自动去掉多余的“and” -->
+        <where>
+           <if test="userName != null and userName != ''">
+               and user_name = #{userName}
+           </if>
+           <if test="age != null and age != ''">
+               and user_age = #{age}
+           </if>
+        </where>
+    </select>
+
+    <insert id="testTrim" parameterType="User" >
+        <!-- trim  标签会自动 加前后缀 并去掉多余的“,” -->
+        insert into USER
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userName != null and userName != ''">
+               user_name,
+            </if>
+            <if test="userAge != null and userAge != ''">
+               user_age,
+            </if>
+            <if test="userAddress != null and userAddress != ''">
+                user_address,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userName != null and userName != ''">
+                user_name = #{userName},
+            </if>
+            <if test="userAge != null and userAge != ''">
+                user_age = #{userAge},
+            </if>
+            <if test="userAddress != null and userAddress != ''">
+                user_address = #{userAddress},
+            </if>
+        </trim>
+    </insert>
+    <!-- choose,when,otherwise 标签，多条件分支判断 -->
+    <!-- foreach 标签，循环语句 -->
+    <select id="testForeach" resultType="User">
+        select
+        <include refid="test"/>
+        from
+        USER
+        <where>
+            id in
+            <!-- collection=arry或list或map -->
+            <foreach collection="arry" open="(" separator="," close=")" index="i" item="ids" >
+              #{ids}
+            </foreach>
+        </where>
+    </select>
+
+    <select id="testAssociation1" resultMap="UserVo2">
+        select
+        id,user_name,user_age,user_address,
+        id as prefix_ID,
+        user_name as prefix_USER_NAME,
+        user_address as prefix_USER_ADDRESS
+        from
+        user
+        WHERE
+        id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="testAssociation2" resultMap="UserVo3">
+        select
+        id,user_name,user_age,user_address
+        from
+        user
+        WHERE
+        id = #{id,jdbcType=INTEGER}
+    </select>
 </mapper>

@@ -3,6 +3,7 @@ package com.piter.mapper;
 import com.piter.entity.User;
 import com.piter.modle.UserDto;
 import com.piter.modle.UserVo;
+import com.piter.modle.UserVo2;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -40,5 +41,11 @@ public interface UserMapper {
     int saveUser1(UserDto dto);
 
     int saveUser2(UserDto dto);
+
+    List<User> testForeach(String[] ids);
+
+    UserVo2 testAssociation1(Integer id);
+
+    UserVo2 testAssociation2(Integer id);
 
 }

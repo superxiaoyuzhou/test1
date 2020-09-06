@@ -29,8 +29,8 @@ public class Test1 {
     //测试自动映射
     @Test
     public void testAutoMapping() {
-        //2.获取sqlSession
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+        //2.获取sqlSession,true自动提交事务
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
         //3.获取对应mapper
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         //4.执行查询并返回结果集
