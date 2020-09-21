@@ -32,9 +32,8 @@ public class 重排序问题演示 {
 
             threadA.join();
             threadB.join();
-            System.out.println("(" + c + "," + d + ")");
             //清空数据，便于测试
-            a = b = c = d = 0;
+            a = b = c = d = e = f = g = h = 0;
         }
     }
 
@@ -42,15 +41,47 @@ public class 重排序问题演示 {
         @Override
         public void run() {
             a = 1;
-            c = a;
+            b = 1;
+            c = 1;
+            d = 1;
+            e = 1;
+            f = 1;
+            g = 1;
+            h = 1;
         }
     }
 
     static class ThreadB extends Thread {
         @Override
         public void run() {
-            b = 1;
-            d = b;
+            if (b == 1 && a == 0) {
+                System.out.println("发生了重排序");
+                System.out.println("b=1");
+            }
+            if (c == 1 && (a == 0 || b == 0)) {
+                System.out.println("发生了重排序");
+                System.out.println("c=1");
+            }
+            if (d == 1 && (a == 0 || b == 0 || c == 0)) {
+                System.out.println("发生了重排序");
+                System.out.println("d=1");
+            }
+            if (e == 1 && (a == 0 || b == 0 || c == 0 || d == 0)) {
+                System.out.println("发生了重排序");
+                System.out.println("e=1");
+            }
+            if (f == 1 && (a == 0 || b == 0 || c == 0 || d == 0 || e == 0)) {
+                System.out.println("发生了重排序");
+                System.out.println("f=1");
+            }
+            if (g == 1 && (a == 0 || b == 0 || c == 0 || d == 0 || e == 0 || f == 0)) {
+                System.out.println("发生了重排序");
+                System.out.println("g=1");
+            }
+            if (h == 1 && (a == 0 || b == 0 || c == 0 || d == 0 || e == 0 || f == 0 || g == 0)) {
+                System.out.println("发生了重排序");
+                System.out.println("h=1");
+            }
         }
     }
 

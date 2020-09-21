@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * 内存溢出
- * -Xms20m -Xmx20m -Xmn20m
+ * -Xms20m 最小堆内存 -Xmx20m 最大堆内存 -Xmn10m 新生代
  */
 public class OOM {
 
