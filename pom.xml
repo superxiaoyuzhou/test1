@@ -18,6 +18,7 @@
 		<module>spring/aop</module>
 		<module>spring/注解</module>
         <module>MyBatis</module>
+        <module>NIO</module>
     </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
