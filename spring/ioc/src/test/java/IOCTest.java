@@ -1,9 +1,11 @@
-import com.piter.service.impl.AccountServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
@@ -22,6 +24,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(locations = "classpath:bean.xml")
 public class IOCTest {
+
+    @Test
+    public void test0() {
+        Resource resource = new ClassPathResource("bean.xml");
+        XmlBeanFactory ac = new XmlBeanFactory(resource);
+        ac.getBean("accountService2");
+        ac.getBean("accountService2");
+    }
 
 
     @Test
