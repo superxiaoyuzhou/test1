@@ -56,7 +56,7 @@
         <association property="test"  column="id" javaType="com.piter.modle.UserVo" columnPrefix="prefix_" select="com.piter.mapper.UserMapper.findById" />
     </resultMap>
 
-    <resultMap id="UserVo3" extends="User" type="com.piter.modle.UserVo2">
+    <resultMap id="UserVo4" extends="User" type="com.piter.modle.UserVo2">
         <!-- 鉴别器（注意继承关系）：这里两个都要继承"UserVo3" -->
         <!-- 通过判断年龄，调用不同的resultMap查询（可以查询不同的表） -->
         <discriminator column="user_age" javaType="int">
