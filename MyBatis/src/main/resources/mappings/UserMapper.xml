@@ -37,14 +37,16 @@
 
     <resultMap id="UserVo3" extends="User" type="com.piter.modle.UserVo2">
         <!-- 一对一 -->
-        <!-- 引用其它命名空间xml的 resultMap -->
+        <!-- 引用其它命名空间xml的 resultMap 和 select -->
+        <!--<association property="test" javaType="com.piter.modle.UserVo" columnPrefix="prefix_" resultMap="com.piter.mapper.UserMapper.User" />-->
+
         <!-- column="id",把id字段传过去做参数查询 -->
         <!-- 多个字段:column="{id=id,user_name=userName}" -->
         <!--
             懒加载:fetchType="lazy"，调用UserVo2对象的"test"属性时才会调用一次"select="的查询进行加载
             需配置：<setting name="aggressiveLazyLoading" value="false"/>
          -->
-        <association property="test"  column="id" javaType="com.piter.modle.UserVo" columnPrefix="prefix_" select="com.piter.mapper.UserMapper.findById" />
+        <association property="test" column="id" javaType="com.piter.modle.UserVo" columnPrefix="prefix_" select="com.piter.mapper.UserMapper.findById" />
         <!-- 一对多 -->
         <collection property="testList"  column="id" javaType="com.piter.modle.UserVo" columnPrefix="prefix_" select="com.piter.mapper.UserMapper.findById" />
     </resultMap>

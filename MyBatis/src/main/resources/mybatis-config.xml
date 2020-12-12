@@ -10,6 +10,7 @@
     <settings>
         <!--开启驼峰命名-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- 默认true，为true时任何方法的调用都会加载对象的所有属性 -->
         <!--<setting name="aggressiveLazyLoading" value="false"/>-->
     </settings>
 
