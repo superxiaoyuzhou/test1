@@ -2,6 +2,7 @@ import com.piter.service.IAccountService;
 import com.piter.service.impl.AccountServiceImpl;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -19,6 +20,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(locations = "classpath:bean.xml")
+//@EnableAspectJAutoProxy
 public class AOPTest {
 
 
