@@ -1,13 +1,21 @@
 package 多线程.lock;
 
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.concurrent.locks.*;
 
+/**
+ * Lock锁的方法：
+ * lock.lock() 加锁
+ * lock.unlock() 释放锁
+ * lock.tryLock() 尝试获取锁
+ *
+ * Condition实现等待通知的相关方法：
+ * Condition condition = lock.newCondition();
+ * condition.await() 与 Object.wait() 作用相同
+ * condition.signal() 与 Object.notify() 作用相同
+ * condition.signalAll() 与 Object.notifyAll() 作用相同
+ */
 public class LockDemo1 {
 
     //总共票数
@@ -34,6 +42,7 @@ public class LockDemo1 {
                     if (i >= 1) {
                         System.out.println("获取到第" + (100 - i + 1) + "号票");
                         lock.lock();
+                        Condition condition = lock.newCondition();
                         try {
                             i--;
                         } catch (Exception e) {
