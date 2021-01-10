@@ -3,7 +3,12 @@ package com.piter;
 import com.piter.entity.User;
 import com.piter.mapper.UserMapper;
 import com.piter.modle.UserDto;
+import com.piter.modle.UserVo;
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.reflection.DefaultReflectorFactory;
+import org.apache.ibatis.reflection.MetaObject;
+import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
+import org.apache.ibatis.reflection.wrapper.DefaultObjectWrapperFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionManager;
@@ -12,7 +17,9 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Test1 {
@@ -45,6 +52,20 @@ public class Test1 {
         userDto.setAge(20);
         mapper.saveUser2(userDto);
         System.out.println("id: " + userDto.getId());
+    }
+
+    @Test
+    public void test3() {
+        DefaultObjectFactory objectFactory = new DefaultObjectFactory();
+        UserVo userVo = objectFactory.create(UserVo.class, Arrays.asList(Integer.class, String.class),Arrays.asList(0,""));
+        DefaultObjectWrapperFactory wrapperFactory = new DefaultObjectWrapperFactory();
+        DefaultReflectorFactory reflectorFactory = new DefaultReflectorFactory();
+        MetaObject metaObject = MetaObject.forObject(userVo, objectFactory,wrapperFactory,reflectorFactory);
+        metaObject.setValue("id", 1);
+        metaObject.setValue("userName", "张三");
+        System.out.println(metaObject.getSetterNames());
+        System.out.println(userVo);
+
     }
 
 }

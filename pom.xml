@@ -20,6 +20,8 @@
         <module>MyBatis</module>
         <module>NIO</module>
         <module>Netty</module>
+        <module>SpringCloud</module>
+        <module>SpringBoot</module>
     </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
