@@ -35,9 +35,10 @@ public class Demo4 {
                 System.out.println(Thread.currentThread().getName() + "多线程----------运行中-------------");
                 Thread.sleep(1000);
                 System.out.println(Thread.currentThread().getName() + "多线程---------------结束释放锁-------");
-                semaphore.release();
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            } finally {
+                semaphore.release();
             }
         }
     }
