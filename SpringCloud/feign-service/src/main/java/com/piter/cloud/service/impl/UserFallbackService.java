@@ -1,12 +1,12 @@
 package com.piter.cloud.service.impl;
 
-import com.macro.cloud.domain.CommonResult;
-import com.macro.cloud.domain.User;
-import com.macro.cloud.service.UserService;
+import com.piter.cloud.domain.CommonResult;
+import com.piter.cloud.domain.User;
+import com.piter.cloud.service.UserService;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by macro on 2019/9/5.
+ * Created by piter on 2019/9/5.
  */
 @Component
 public class UserFallbackService implements UserService {
